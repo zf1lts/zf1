@@ -631,6 +631,7 @@ class Zend_Locale_Format
             }
 
             $regex[$pkey] .= '$/u';
+            $regex[$pkey] = preg_quote($regex[$pkey]);
         }
 
         return $regex;
