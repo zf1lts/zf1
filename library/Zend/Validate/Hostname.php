@@ -22,12 +22,12 @@
 /**
  * @see Zend_Validate_Abstract
  */
-require_once 'Zend/Validate/Abstract.php';
+#require_once 'Zend/Validate/Abstract.php';
 
 /**
  * @see Zend_Validate_Ip
  */
-require_once 'Zend/Validate/Ip.php';
+#require_once 'Zend/Validate/Ip.php';
 
 /**
  * Please note there are two standalone test scripts for testing IDN characters due to problems
@@ -1736,8 +1736,8 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
             $status = false;
 
             $origenc = PHP_VERSION_ID < 50600
-                        ? iconv_get_encoding('internal_encoding')
-                        : ini_get('default_charset');
+                ? iconv_get_encoding('internal_encoding')
+                : ini_get('default_charset');
             if (PHP_VERSION_ID < 50600) {
                 iconv_set_encoding('internal_encoding', 'UTF-8');
             } else {
@@ -1804,7 +1804,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
                         if ((strpos($domainPart, '-') === 0)
                             || ((strlen($domainPart) > 2) && (strpos($domainPart, '-', 2) == 2) && (strpos($domainPart, '-', 3) == 3))
                             || (strpos($domainPart, '-') === (strlen($domainPart) - 1))) {
-                                $this->_error(self::INVALID_DASH);
+                            $this->_error(self::INVALID_DASH);
                             $status = false;
                             break 2;
                         }
@@ -1930,9 +1930,9 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
             for ($old_index = $index, $pos = 1, $key = 36; 1 ; $key += 36) {
                 $hex   = ord($encoded[$indexe++]);
                 $digit = ($hex - 48 < 10) ? $hex - 22
-                       : (($hex - 65 < 26) ? $hex - 65
-                       : (($hex - 97 < 26) ? $hex - 97
-                       : 36));
+                    : (($hex - 65 < 26) ? $hex - 65
+                        : (($hex - 97 < 26) ? $hex - 97
+                            : 36));
 
                 $index += $digit * $pos;
                 $tag    = ($key <= $base) ? 1 : (($key >= $base + 26) ? 26 : ($key - $base));
