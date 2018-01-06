@@ -277,6 +277,16 @@ abstract class Zend_Mail_Transport_Abstract
         }
 
         if (!$body) {
+
+            // Patch: http://stackoverflow.com/a/30631525
+
+            // this will probably only happen in multipart case
+            // where we need to assemble manually ..
+            $this->_isMultipart = true;
+             // set our manual headers :
+            $this->_headers = $this->_mail->getHeaders();
+            return;
+
             /**
              * @see Zend_Mail_Transport_Exception
              */
